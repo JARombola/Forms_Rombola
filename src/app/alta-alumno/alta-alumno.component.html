@@ -1,0 +1,85 @@
+<h1 class="m-3 text-primary border-bottom border-primary border-opacity-25 border-2 pb-2" >Registro de alumno</h1>
+<form [formGroup]="formularioAlumno" (ngSubmit)="submitAlumno()" class="m-3" >
+    <div class="row">
+        <div class="col mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" [ngClass]= "{
+           'is-valid': (cNombre?.valid && (cNombre?.dirty || cNombre?.touched)),
+           'is-invalid': (cNombre?.invalid && (cNombre?.dirty || cNombre?.touched))
+        }"
+        id="nombre" placeholder="Ingresar nombre" formControlName="nombre" required>
+        <div *ngIf="cNombre?.invalid && (cNombre?.dirty || cNombre?.touched)" class="invalid-feedback">
+            <div *ngIf="cNombre?.errors?.['required']">
+                - Nombre obligatorio.
+            </div>
+            <div *ngIf="cNombre?.errors?.['minlength']">
+                - Mínimo 3 caracteres
+            </div>
+        </div>
+        </div>
+  
+      <div class="col mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" [ngClass]= "{
+            'is-valid': (cApellido?.valid && (cApellido?.dirty || cApellido?.touched)),
+            'is-invalid': (cApellido?.invalid && (cApellido?.dirty || cApellido?.touched))
+         }"
+         id="apellido" placeholder="Ingresar apellido" formControlName="apellido" required> 
+        <div *ngIf="cApellido?.invalid && (cApellido?.dirty || cApellido?.touched)" class="invalid-feedback">
+            <div *ngIf="cApellido?.errors?.['required']">
+                - Apellido obligatorio.
+            </div>
+            <div *ngIf="cApellido?.errors?.['minlength']">
+                - Mínimo 3 caracteres
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col mb-3">
+        <label for="edad" class="form-label">Edad</label>
+        <input type="number" class="form-control" [ngClass]= "{
+            'is-valid': (cEdad?.valid && (cEdad?.dirty || cEdad?.touched)),
+            'is-invalid': (cEdad?.invalid && (cEdad?.dirty || cEdad?.touched))
+         }"
+        id="edad" placeholder="Ingresar edad (entre 18 y 80)" formControlName="edad">
+        <div *ngIf="cEdad?.invalid && (cEdad?.dirty || cEdad?.touched)" class="invalid-feedback">
+            <div *ngIf="cEdad?.errors?.['min']">
+                - La edad debe ser mayor a 18 años.
+            </div>
+            <div *ngIf="cEdad?.errors?.['max']">
+                - La edad debe ser menor a 80 años.
+            </div>
+        </div>
+      </div>
+  
+      <div class="col mb-3">
+        <label for="mail" class="form-label">Email</label>
+        <input type="email" class="form-control" [ngClass]= "{
+            'is-valid': (cMail?.valid && (cMail?.dirty || cMail?.touched)),
+            'is-invalid': (cMail?.invalid && (cMail?.dirty || cMail?.touched))
+         }"
+        
+        id="mail" placeholder="Ingresar mail" formControlName="mail" required>
+        <div *ngIf="cMail?.invalid && (cMail?.dirty || cMail?.touched)" class="invalid-feedback">
+            <div *ngIf="!cMail?.errors?.['email'] && cApellido?.errors?.['required']">
+                - Email obligatorio.
+            </div>
+            <div *ngIf="cMail?.errors?.['email']">
+                - Formato de email incorrecto.
+            </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="d-grid col-6 mx-auto mt-5">
+        <button type="submit" class="btn btn-primary m-3">Registrar!</button>
+     </div>
+     <div class="alert alert-success" role="alert" *ngIf="submit && ok">
+        Datos ok!
+    </div>
+     <div class="alert alert-danger" role="alert" *ngIf="submit && !ok">
+        Datos mal!
+    </div>
+  </form>
